@@ -39,7 +39,7 @@ it("Sending whole dataset", async () => {
     "vHyedy6rmackO+Iz1T5+Hoznxvy+hVYq/Rwb6pFboeJxi9mioR+Evoz9KEOmSm2Avlv/HkQeZinrwqK0GlDp+Q==",
     fakeDataset_One
   );
-  expect(collector.message).toEqual("Generated dataset");
+  expect(collector).toEqual("Generated dataset");
 });
 
 describe("sending dataset in increments", () => {
