@@ -1,0 +1,14 @@
+{
+  "name": "explorer-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test"
+  },
+  "author": "Tobias King",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "*"
+  }
+}
