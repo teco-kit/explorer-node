@@ -55,7 +55,7 @@ describe("sending dataset in increments", () => {
 
   it("Error sending single datapoints", async () => {
     axios.post.mockImplementationOnce(() =>
-      Promise.resolve({ data: { deviceApiKey: "fakeDeviceKey" } })
+      Promise.resolve({ data: { datasetKey: "fakeDeviceKey" } })
     );
 
     var collector = await datasetCollector(
@@ -74,7 +74,7 @@ describe("sending dataset in increments", () => {
 
   it("Everything works as expected", async () => {
     axios.post.mockImplementationOnce(() =>
-      Promise.resolve({ data: { deviceApiKey: "fakeDeviceKey" } })
+      Promise.resolve({ data: { datasetKey: "fakeDeviceKey" } })
     );
 
     var collector = await datasetCollector(

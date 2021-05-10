@@ -55,9 +55,11 @@ exports.datasetCollector = async function (url, key, useServerTime) {
     const data = await axios.post(url + URLS.initDatasetIncrement, {
       deviceApiKey: key,
     });
-    if (!data || data.error) {
+
+    if (!data || !data.data || !data.data.datasetKey) {
       throw new Error();
     }
+
     const datasetKey = data.data.datasetKey;
 
     /**
@@ -69,6 +71,12 @@ exports.datasetCollector = async function (url, key, useServerTime) {
      */
     function addDataPoint(timeSeriesName, datapoint, timestamp) {
       return new Promise((resolve, reject) => {
+        if (typeof datapoint !== "number") {
+          reject("Datapoint is not a number");
+        }
+        if (useServerTime && typeof timestamp !== "number") {
+          reject("Provide a valid timestamp");
+        }
         axios
           .post(url + URLS.addDatasetIncrement, {
             datasetKey: datasetKey,
