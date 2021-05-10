@@ -21,7 +21,7 @@ const fakeDataset_One = {
       unit: "t1",
       start: 1595506316,
       end: 1595506319,
-      samplingRate: 1,
+      samplingRate: 2,
     },
   ],
 };
