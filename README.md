@@ -30,7 +30,7 @@ dataset=dataset)
 const datasetCollector = require("./index").datasetCollector;
 
 // Generate collector function
-const collector = await sendDataset(
+const collector = await datasetCollector(
 url="explorerBackendUrl", key="deviceApiKey",
 useServerTime=false // true if you want to use servertime
 );
@@ -43,6 +43,7 @@ if (!collector.error) {
 ###### 2. Use collector function to upload data
 
 ```js
+// Timestamp will be ignored if you specified serverTime=true in datasetCollector 
 collector(timeSeriesName="sensorName", datapoint=1.23, timestamp=1618760114)
 .then(() => 
   // Success case
@@ -50,3 +51,5 @@ collector(timeSeriesName="sensorName", datapoint=1.23, timestamp=1618760114)
   // Error case
   console.log(err));
 ```
+
+
