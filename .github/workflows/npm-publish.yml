@@ -24,6 +24,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - id: check
+        uses: EndBug/version-check@v1
+        with:
+          file-url: https://unpkg.com/explorer-node@latest/package.json
+          static-checking: localIsNew
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
@@ -31,22 +36,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm publish
+        if: steps.check.outputs.changed == 'true'
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Version unchanged
+        if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change: Not publishing to npm"'
