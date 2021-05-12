@@ -31,11 +31,14 @@ jobs:
           static-checking: localIsNew
           file-name: package.json
       - uses: actions/checkout@v2
+        if: steps.check.outputs.changed == 'true'
       - uses: actions/setup-node@v2
+        if: steps.check.outputs.changed == 'true'
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+        if: steps.check.outputs.changed == 'true'
       - run: npm publish
         if: steps.check.outputs.changed == 'true'
         env:
