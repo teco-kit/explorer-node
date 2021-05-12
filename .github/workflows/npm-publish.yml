@@ -29,6 +29,7 @@ jobs:
         with:
           file-url: https://unpkg.com/explorer-node@latest/package.json
           static-checking: localIsNew
+          file-name: package.json
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
