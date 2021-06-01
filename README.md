@@ -40,7 +40,7 @@ const collector = await datasetCollector(
 url="explorerBackendUrl", key="deviceApiKey",
 useServerTime=false // true if you want to use servertime
 );
-if (!collector.error) {
+if (collector.error) {
   // Error occurred, cannot use the collector as a function to upload datasetincrements
   console.log(collector.error);
   return;
