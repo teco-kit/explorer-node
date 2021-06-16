@@ -38,6 +38,7 @@ const datasetCollector = require("explorer-node").datasetCollector;
 // Generate collector function
 const collector = await datasetCollector(
 url="explorerBackendUrl", key="deviceApiKey",
+name="datasetName"
 useServerTime=false // true if you want to use servertime
 );
 if (collector.error) {

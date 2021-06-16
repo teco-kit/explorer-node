@@ -8,6 +8,7 @@ jest.mock("axios");
 const fakeDataset_One = {
   start: 1595506316,
   end: 1595506319,
+  name: "fakeDataset_One",
   timeSeries: [
     {
       data: [
@@ -48,6 +49,7 @@ describe("sending dataset in increments", () => {
     var collector = await datasetCollector(
       "fakeURL",
       "Y8JCElwgmcFmDctyT3pV5OGnZU/nWIMF4EQLhLkYSQ6ZTaOhUD7ijVCln8KKU++B57XsmX1uQd/U76vpdIsHow=?",
+      "testDataset"
       false
     );
     expect(collector.error).not.toEqual(undefined);
