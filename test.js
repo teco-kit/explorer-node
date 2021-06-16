@@ -49,7 +49,7 @@ describe("sending dataset in increments", () => {
     var collector = await datasetCollector(
       "fakeURL",
       "Y8JCElwgmcFmDctyT3pV5OGnZU/nWIMF4EQLhLkYSQ6ZTaOhUD7ijVCln8KKU++B57XsmX1uQd/U76vpdIsHow=?",
-      "testDataset"
+      "testDataset",
       false
     );
     expect(collector.error).not.toEqual(undefined);
