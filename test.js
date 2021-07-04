@@ -68,8 +68,10 @@ describe("sending dataset in increments", () => {
     expect(collector.error).toEqual(undefined);
     axios.post.mockReturnValue(Promise.reject("fakeError"));
     try {
-      const response = await collector("accX", 1, 1618760114);
+      collector.addDataPoint(1618760114000, "accX", 1);
+      collector.onComplete();
     } catch (e) {
+      console.log("Testerror")
       expect(e).toMatch("fakeError");
     }
   });
@@ -91,12 +93,11 @@ describe("sending dataset in increments", () => {
 
     try {
       for (var i = 0; i < 10; i++) {
-        collector("accX", 1, 1618760114).then((data) => {
-          expect(data).toEqual(undefined);
-        });
+        collector.addDataPoint(1618760114000, "accX", 1);
       }
+      collector.onComplete();
     } catch (e) {
-      fail(e)
+      fail(e);
     }
   });
 });

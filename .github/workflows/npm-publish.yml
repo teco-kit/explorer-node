@@ -45,5 +45,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Version unchanged
-        if: steps.check.outputs.changed == 'false'
-        run: 'echo "No version change: Not publishing to npm"'
+        run: 'echo "${{steps.check.outputs.changed}}"'

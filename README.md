@@ -7,7 +7,9 @@ Node library for https://github.com/teco-kit/explorer. Can be used to upload dat
 ## How to use
 
 #### Installation
+
 The library can be installed from npm
+
 ```bash
 npm i explorer-node
 ```
@@ -18,45 +20,82 @@ npm i explorer-node
 const sendDataset = require("explorer-node").sendDataset;
 
 sendDataset(
-url="explorerBackendUrl",
-key="deviceApiKey",
-dataset=dataset)
-.then(msg => 
-  // Handle success
-  console.log(msg))
-.catch(err => 
- // Handle error
- console.log(err));
+  (url = "explorerBackendUrl"),
+  (key = "deviceApiKey"),
+  (dataset = dataset)
+)
+  .then((msg) =>
+    // Handle success
+    console.log(msg)
+  )
+  .catch((err) =>
+    // Handle error
+    console.log(err)
+  );
 ```
 
-#### Upload datasets in increments
+#### How to use
 
-###### 1. Generate collector-function
+###### Upload datasets in increments with custom timestamps
+
 ```js
 const datasetCollector = require("explorer-node").datasetCollector;
 
 // Generate collector function
 const collector = await datasetCollector(
-url="explorerBackendUrl", key="deviceApiKey",
-name="datasetName",
-useServerTime=false // true if you want to use servertime
+  (url = "explorerBackendUrl"),
+  (key = "deviceApiKey"),
+  (name = "datasetName"),
+  (useDeviceTime = false) // true if you want to use the time of the device, false if you want to provide your own timestamps
 );
 if (collector.error) {
   // Error occurred, cannot use the collector as a function to upload datasetincrements
   console.log(collector.error);
   return;
 }
+
+try {
+  // time should be a unix timestamp
+  collector.addDataPoint(
+    (time = 1618760114000),
+    (sensorName = "sensorName"),
+    (value = 1.23)
+  );
+
+  // Tells the libarary that all data has been recorded.
+  // Uploads all remaining datapoints to the server
+  collector.onComplete();
+} catch (e) {
+  console.log(e);
+}
 ```
-###### 2. Use collector function to upload data
+
+###### Upload datasets in increments with timestamps from the device
 
 ```js
-// Timestamp will be ignored if you specified serverTime=true in datasetCollector 
-collector(timeSeriesName="sensorName", datapoint=1.23, timestamp=1618760114)
-.then(() => 
-  // Success case
-).catch(err => 
-  // Error case
-  console.log(err));
+const datasetCollector = require("explorer-node").datasetCollector;
+
+// Generate collector function
+const collector = await datasetCollector(
+  (url = "explorerBackendUrl"),
+  (key = "deviceApiKey"),
+  (name = "datasetName"),
+  (useDeviceTime = true) // The datapoint at which addDataPoint is called will be used.
+);
+if (collector.error) {
+  // Error occurred, cannot use the collector as a function to upload datasetincrements
+  console.log(collector.error);
+  return;
+}
+
+try {
+  // No longer necessary to provide the time here
+  collector.addDataPoint((sensorName = "sensorName"), (value = 1.23));
+
+  // Tells the libarary that all data has been recorded.
+  // Uploads all remaining datapoints to the server
+  collector.onComplete();
+} catch (e) {
+  console.log(e);
+}
 ```
-
-
