@@ -4,7 +4,7 @@ const URLS = {
   uploadDataset: "/api/deviceapi/uploadDataset",
   initDatasetIncrement: "/api/deviceapi/initDatasetIncrement",
   addDatasetIncrement: "/api/deviceapi/addDatasetIncrement",
-  addDatasetIncrementBatch: "/api/deviceapi/addDatasetIncrementBatchs",
+  addDatasetIncrementBatch: "/api/deviceapi/addDatasetIncrementBatch",
 };
 
 axios.interceptors.response.use(
@@ -81,7 +81,7 @@ exports.datasetCollector = async function (url, key, name, useDeviceTime) {
       if (typeof value !== "number") {
         throw new Error("Datapoint is not a number");
       }
-      if (useDeviceTime && typeof time !== "number") {
+      if (!useDeviceTime && typeof time !== "number") {
         throw new Error("Provide a valid timestamp");
       }
 
@@ -131,7 +131,7 @@ exports.datasetCollector = async function (url, key, name, useDeviceTime) {
     }
 
     /**
-     * Syncrhonizes the server with the data when you have added all data
+     * Synchronizes the server with the data when you have added all data
      */
     function onComplete() {
       if (error) {
