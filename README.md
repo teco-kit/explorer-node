@@ -2,7 +2,7 @@
 
 Node library for https://github.com/teco-kit/explorer. Can be used to upload datasets as whole or incrementally.
 
-![Tests](https://github.com/teco-kit/explorer-node/actions/workflows/nodeTest.yml/badge.svg)
+![Tests](https://github.com/teco-kit/explorer-node/actions/workflows/npm-publish.yml/badge.svg)
 
 ## How to use
 
@@ -34,9 +34,9 @@ sendDataset(
   );
 ```
 
-#### How to use
+#### Upload datasets in increments
 
-###### Upload datasets in increments with custom timestamps
+##### Upload datasets in increments with custom timestamps
 
 ```js
 const datasetCollector = require("explorer-node").datasetCollector;
@@ -70,7 +70,7 @@ try {
 }
 ```
 
-###### Upload datasets in increments with timestamps from the device
+##### Upload datasets in increments with timestamps from the device
 
 ```js
 const datasetCollector = require("explorer-node").datasetCollector;
